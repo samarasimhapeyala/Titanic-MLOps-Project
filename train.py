@@ -1,3 +1,4 @@
+# train.py
 """
 This script trains a RandomForestClassifier model on the Titanic dataset.
 The dataset is processed, missing values are handled, and categorical variables
@@ -18,11 +19,8 @@ import joblib
 # Load the Titanic dataset
 data = pd.read_csv('data/Titanic-Dataset.csv')
 
-# Debugging: Check for missing values after loading
-print("Missing values before preprocessing:")
-print(data.isnull().sum())
-
 # Preprocess the dataset
+# Keep only the useful features
 data = data[['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked', 'Survived']]
 
 # Map categorical variables
@@ -30,27 +28,20 @@ data['Sex'] = data['Sex'].map({'male': 0, 'female': 1})
 data['Embarked'] = data['Embarked'].map({'C': 0, 'Q': 1, 'S': 2})
 
 # Handle missing values
-data['Age'] = data['Age'].fillna(int(data['Age'].mean()))  # Fill missing ages with integer mean
-data['Fare'] = data['Fare'].fillna(data['Fare'].mean())  # Fill missing fare with float mean
-data['Embarked'] = data['Embarked'].fillna(data['Embarked'].mode()[0])  # Fill missing embarked with mode
+data['Age'] = data['Age'].fillna(data['Age'].mean())
+data['Fare'] = data['Fare'].fillna(data['Fare'].mean())
+data['Embarked'] = data['Embarked'].fillna(data['Embarked'].mode()[0])  # Use mode for categorical values
 
-# Debugging: Check for missing values after preprocessing
-print("Missing values after preprocessing:")
-print(data.isnull().sum())
-
-# Validate that no missing values remain and handle any remaining NaNs
+# Validate that no missing values remain
 if data.isnull().any().any():
-    print("Warning: Data contains NaN values after preprocessing. Handling them automatically.")
-    data = data.fillna(0)  # Fill any remaining NaNs with 0
+    raise ValueError("Data contains NaN values after preprocessing!")
 
 # Features and target
 X = data.drop('Survived', axis=1)
 y = data['Survived']
 
 # Train-test split
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Train a RandomForest model
 model = RandomForestClassifier(random_state=42)
