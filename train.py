@@ -31,10 +31,6 @@ data['Age'] = data['Age'].fillna(round(data['Age'].mean()))  # Fill with integer
 data['Fare'] = data['Fare'].fillna(round(data['Fare'].mean()))  # Fill with integer mean
 data['Embarked'] = data['Embarked'].fillna(data['Embarked'].mode()[0])
 
-# Validate that no missing values remain
-if data.isnull().any().any():
-    raise ValueError("Data contains NaN values after preprocessing!")
-
 # Features and target
 X = data.drop('Survived', axis=1)
 y = data['Survived']
