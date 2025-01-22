@@ -50,3 +50,5 @@ print(f"Model Accuracy: {accuracy}")
 
 # Save the model
 joblib.dump(model, 'models/titanic_model.pkl')
+
+# Ensure there is a newline at the end of the file
