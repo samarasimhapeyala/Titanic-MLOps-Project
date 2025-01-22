@@ -82,7 +82,7 @@ jobs:
           echo "Model training completed successfully!"
 
       - name: Upload the trained model as an artifact (Optional)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: titanic_model
           path: models/titanic_model.pkl  # Upload the trained model as artifact for later use
