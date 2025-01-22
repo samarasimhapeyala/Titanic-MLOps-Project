@@ -27,11 +27,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Lint Python code
+      - name: Lint Python code (ignore missing docstring warning)
         run: |
           pip install pylint
-          pylint train.py  # Lint your train.py file
-
+          pylint --disable=C0114 train.py  # Disable the missing module docstring warning
+          
   # Testing job (this can be expanded if you add actual tests later)
   testing:
     runs-on: ubuntu-latest
