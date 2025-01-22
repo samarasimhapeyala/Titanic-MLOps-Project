@@ -27,10 +27,9 @@ data = data[['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked', 'Surv
 data['Sex'] = data['Sex'].map({'male': 0, 'female': 1})
 data['Embarked'] = data['Embarked'].map({'C': 0, 'Q': 1, 'S': 2})
 
-# Handle missing values
-data['Age'] = data['Age'].fillna(data['Age'].mean())
-data['Fare'] = data['Fare'].fillna(data['Fare'].mean())
-data['Embarked'] = data['Embarked'].fillna(data['Embarked'].mode()[0])  # Use mode for categorical values
+data['Age'] = data['Age'].fillna(round(data['Age'].mean()))  # Fill with integer mean
+data['Fare'] = data['Fare'].fillna(round(data['Fare'].mean()))  # Fill with integer mean
+data['Embarked'] = data['Embarked'].fillna(data['Embarked'].mode()[0])
 
 # Validate that no missing values remain
 if data.isnull().any().any():
