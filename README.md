@@ -27,3 +27,5 @@ The goal of this project is to understand the basics of MLOps and implement a si
 
 - **A Git repository link with branches and merge history.**
   - Provide a link to your Git repository and ensure the history shows your work on branches and merges.
+
+## Making changes to readme to merge new branch
